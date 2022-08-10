@@ -1,0 +1,8 @@
+.warning {
+    border: 3px solid red;
+    background: blanchedalmond;
+    opacity: 0.8;
+    color: red;
+    font-weight: bold;
+    outline: none;
+}

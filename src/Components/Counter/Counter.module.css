@@ -1,0 +1,14 @@
+.num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 100px;
+    margin: 0 auto;
+    border: 1px solid gold;
+    padding: 5px;
+    color: mediumpurple;
+    border-radius: 5px;
+    font-size: 25px;
+    font-weight: bold;
+}
