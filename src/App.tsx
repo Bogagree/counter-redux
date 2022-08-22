@@ -35,7 +35,7 @@ function App() {
 
     const numReset = () => {
         setCounter(0)
-        setError(false)
+        // setError(false)
         localStorage.removeItem("counterValue")
     }
 
@@ -43,7 +43,7 @@ function App() {
         setCounter(newStart)
         setStart(newStart)
         setMax(newMax)
-        setError(false)
+        // setError(false)
     }
 
     return (

@@ -32,8 +32,8 @@ const Counter = (props: CounterPropsType) => {
             <div className={style.counter}>
                 <div className={style.num}>
                     {error
-                        ? "Incorrect value!"
-                        : props.value}
+                        ? props.value
+                        : "Type correct Start, Max!" }
                 </div>
                 <div>
                     <CounterButton callback={increaseHandler}

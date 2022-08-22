@@ -2,6 +2,9 @@ type CountActionType = IncreaseActionType
     | ResetActionType
     | SetErrorActionType
     | SetSettingsOrStorageType
+    | SetMaxACType
+    | SetStartACType
+    | SetStorageACType
 
 type IncreaseActionType = {
     type: "INCREMENT"
@@ -12,11 +15,15 @@ type ResetActionType = {
 }
 
 type SetSettingsOrStorageType = {
-    type: 'SET-STORAGE' | 'SET-MAX' | 'SET-START'
+    type: 'SET-STORAGE' | 'SET-START'
     payload: {
         value: number
     }
 }
+
+type SetMaxACType = ReturnType<typeof SetMaxAC>
+type SetStartACType = ReturnType<typeof SetMaxAC>
+type SetStorageACType = ReturnType<typeof SetMaxAC>
 
 type SetErrorActionType = {
     type: 'SET-ERROR'
@@ -29,10 +36,12 @@ export type CounterType = {
     max: number
 }
 
+const initValue = 4
+
 const initialState: CounterType = {
-    count: 0,
-    error: false,
-    start: 4,
+    count: initValue,
+    error: true,
+    start: initValue,
     max: 7
 }
 
@@ -41,15 +50,13 @@ export const counterReducer = (state: CounterType = initialState, action: CountA
         case "INCREMENT":
             return {...state, count: state.count + 1};
         case "RESET":
-            return {...state, count: 0};
-        case "SET-STORAGE":
-            return {...state, count: action.payload.value};
+            return {...state, count: state.start};
         case 'SET-ERROR':
             return {...state, error: !state.error}
         case "SET-MAX":
-            return {...state, max: action.payload.value};
         case "SET-START":
-            return {...state, start: action.payload.value};
+        case "SET-STORAGE":
+            return {...state, ...action.payload};
         default:
             return state;
     }
@@ -67,14 +74,14 @@ export const SetErrorAC = (): SetErrorActionType => {
     return {type: 'SET-ERROR'}
 }
 
-export const SetSettingsOrStorageAC = (value: number): SetSettingsOrStorageType => {
-    return {type: 'SET-STORAGE', payload: {value}}
+export const SetSettingsOrStorageAC = (value: number) => {
+    return {type: 'SET-STORAGE', payload: {count: value}}
 }
 
-export const SetStartAC = (value: number): SetSettingsOrStorageType => {
-    return {type: 'SET-START', payload: {value}}
+export const SetStartAC = (value: number) => {
+    return {type: 'SET-START', payload: {start: value}}
 }
 
-export const SetMaxAC = (value: number): SetSettingsOrStorageType => {
-    return {type: 'SET-MAX', payload: {value}}
+export const SetMaxAC = (value: number) => {
+    return {type: 'SET-MAX', payload: {max: value}}
 }

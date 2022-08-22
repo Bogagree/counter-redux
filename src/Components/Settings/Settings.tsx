@@ -2,6 +2,9 @@ import React, {ChangeEvent, useState} from 'react';
 import CounterButton from "../../Common/CounterButton/CounterButton";
 import styleContainer from '../../Common/Styles/Container.module.css'
 import style from './Settings.module.css'
+import {AppRootStateType} from "../../state/store";
+import {useDispatch, useSelector} from "react-redux";
+import {SetErrorAC} from "../../state/counter-reducer";
 
 type SettingsPropsType = {
     initialStart: number
@@ -15,9 +18,12 @@ const Settings: React.FC<SettingsPropsType> = (
     }
 ) => {
 
+    // const error = useSelector<AppRootStateType, boolean>(state => state.counter.error)
+    const dispatch = useDispatch()
 
     const [start, setStart] = useState(initialStart)
     const [max, setMax] = useState(initialMax)
+
 
     const setHandler = () => {
         setSettings(start, max)
@@ -33,6 +39,10 @@ const Settings: React.FC<SettingsPropsType> = (
     let isDisabled = start < 0 || max < 0 || start >= max
 
     let finalClassName = isDisabled ? style.warning : '';
+
+    const isDisabledButton = () => {
+        dispatch(SetErrorAC())
+    }
 
     return (
         <div className={styleContainer.container}>
@@ -52,7 +62,10 @@ const Settings: React.FC<SettingsPropsType> = (
                    className={finalClassName}
             />
 
-            <CounterButton title={'set'} callback={setHandler} disabled={isDisabled}/>
+            <div onClick={isDisabledButton}>
+                <CounterButton title={'set'} callback={setHandler} disabled={isDisabled}/>
+            </div>
+
         </div>
     )
 };

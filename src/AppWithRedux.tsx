@@ -1,26 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import style from './Common/Styles/Wrapper.module.css'
 import Counter from "./Components/Counter/Counter";
 import Settings from "./Components/Settings/Settings";
 import {useDispatch, useSelector} from "react-redux";
-import {increaseAC, resetAC, SetErrorAC, SetSettingsOrStorageAC, SetStartAC} from "./state/counter-reducer";
+import {increaseAC, resetAC, SetErrorAC, SetMaxAC, SetSettingsOrStorageAC, SetStartAC} from "./state/counter-reducer";
 import {AppRootStateType} from "./state/store";
 
 function App() {
 
     const dispatch = useDispatch()
-    const count = useSelector<AppRootStateType, number>(state => state.counter.count)
-
+    let count = useSelector<AppRootStateType, number>(state => state.counter.count)
+    const start = useSelector<AppRootStateType, number>(state => state.counter.start)
+    const max = useSelector<AppRootStateType, number>(state => state.counter.max)
 
     let storageStart = localStorage.getItem("StartValue")
     let initialStart = storageStart && JSON.parse(storageStart)
 
     let storageMax = localStorage.getItem("MaxValue")
     let initialMax = storageMax && JSON.parse(storageMax)
-
-    const [start, setStart] = useState(initialStart)
-    const [max, setMax] = useState(initialMax)
 
     useEffect(() => {
         localStorage.setItem("counterValue", JSON.stringify(count))
@@ -41,15 +39,14 @@ function App() {
 
     const numReset = () => {
         dispatch(resetAC())
-        dispatch(SetErrorAC())
         localStorage.removeItem("counterValue")
     }
 
     const setSettings = (newStart: number, newMax: number) => {
-        dispatch(SetStartAC(newStart))
-        setStart(newStart)
-        setMax(newMax)
-        dispatch(SetErrorAC())
+            dispatch(SetStartAC(newStart))
+            dispatch(SetSettingsOrStorageAC(newStart))
+            dispatch(SetMaxAC(newMax))
+            dispatch(SetErrorAC())
     }
 
     return (
@@ -70,6 +67,5 @@ function App() {
         </div>
     );
 }
-
 
 export default App;
