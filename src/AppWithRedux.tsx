@@ -4,8 +4,8 @@ import style from './Common/Styles/Wrapper.module.css'
 import Counter from "./Components/Counter/Counter";
 import Settings from "./Components/Settings/Settings";
 import {useDispatch, useSelector} from "react-redux";
-import {increaseAC, resetAC, SetErrorAC, SetMaxAC, SetSettingsOrStorageAC, SetStartAC} from "./state/counter-reducer";
-import {AppRootStateType} from "./state/store";
+import {increaseAC, resetAC, SetErrorAC, SetMaxAC, SetSettingsOrStorageAC, SetStartAC} from "./bll/counter-reducer";
+import {AppRootStateType} from "./bll/store";
 
 function App() {
 

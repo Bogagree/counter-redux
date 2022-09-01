@@ -3,7 +3,7 @@ import styleContainer from '../../Common/Styles/Container.module.css'
 import style from './Counter.module.css'
 import CounterButton from "../../Common/CounterButton/CounterButton";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store";
+import {AppRootStateType} from "../../bll/store";
 
 type CounterPropsType = {
     value: number

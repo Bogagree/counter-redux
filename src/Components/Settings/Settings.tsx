@@ -2,9 +2,8 @@ import React, {ChangeEvent, useState} from 'react';
 import CounterButton from "../../Common/CounterButton/CounterButton";
 import styleContainer from '../../Common/Styles/Container.module.css'
 import style from './Settings.module.css'
-import {AppRootStateType} from "../../state/store";
-import {useDispatch, useSelector} from "react-redux";
-import {SetErrorAC} from "../../state/counter-reducer";
+import {useDispatch} from "react-redux";
+import {SetErrorAC} from "../../bll/counter-reducer";
 
 type SettingsPropsType = {
     initialStart: number
@@ -18,7 +17,7 @@ const Settings: React.FC<SettingsPropsType> = (
     }
 ) => {
 
-    // const error = useSelector<AppRootStateType, boolean>(state => state.counter.error)
+    // const error = useSelector<AppRootStateType, boolean>(bll => bll.counter.error)
     const dispatch = useDispatch()
 
     const [start, setStart] = useState(initialStart)
